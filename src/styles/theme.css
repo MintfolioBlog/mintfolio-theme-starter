@@ -1,6 +1,8 @@
 :root { color-scheme: light; font-family: system-ui, sans-serif; }
 body { margin: 0; color: #1d1d1b; background: #fff; }
 main { width: min(calc(100% - 2rem), 46rem); margin: 0 auto; padding: 2rem 0; }
+/* Authored media must fit the reading column even before client scripts load. */
+main article :is(img, video) { max-width: 100%; height: auto; }
 a { color: var(--starter-accent); }
 .starter-site { display: flex; align-items: center; gap: 0.5rem; }
 .starter-site img { color: var(--starter-accent); }

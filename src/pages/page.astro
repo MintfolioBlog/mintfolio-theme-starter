@@ -1,0 +1,34 @@
+---
+import type { PageProps, StaticPageData } from '@mintfolio/core/astro';
+import StarterLayout from '../layouts/StarterLayout.astro';
+
+interface StarterSettings { readonly accentColor: string; }
+interface Props extends PageProps<StarterSettings, StaticPageData> {}
+const { theme, page } = Astro.props;
+---
+<StarterLayout seo={page.seo} siteTitle={theme.site.title} homeUrl={theme.urls.home()} accentColor={theme.settings.accentColor}>
+  <article>
+    <header><h1>{page.title}</h1><p>{page.description}</p></header>
+    {page.body ? (
+      <div class="starter-prose" set:html={page.body.html} />
+    ) : page.id === 'about' && (
+      <div class="starter-prose">
+        <p>{page.profile.bio}</p>
+        <dl>
+          <dt>姓名</dt><dd>{page.profile.name}</dd>
+          <dt>所在地</dt><dd>{page.profile.location}</dd>
+          <dt>联系方式</dt><dd><a href={`mailto:${theme.site.contact.email}`}>{theme.site.contact.email}</a></dd>
+        </dl>
+        {theme.site.social.length > 0 && <ul>{theme.site.social.map((social) => <li><a href={social.url}>{social.platform}</a></li>)}</ul>}
+      </div>
+    )}
+  </article>
+</StarterLayout>
+<style>
+  .starter-prose { line-height: 1.8; overflow-wrap: anywhere; }
+  .starter-prose :global(img) { max-width: 100%; height: auto; }
+  .starter-prose :global(pre) { overflow: auto; padding: 1rem; background: #f3f3ef; }
+  .starter-prose :global(blockquote) { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 3px solid var(--starter-accent); }
+  .starter-prose :global(table) { display: block; overflow-x: auto; border-collapse: collapse; }
+  .starter-prose :global(th), .starter-prose :global(td) { border: 1px solid #ccc; padding: .4rem .7rem; }
+</style>
