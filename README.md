@@ -1,15 +1,15 @@
 # Mintfolio Theme Starter
 
-从两张 Astro 页面开始，写一个自己的 [Mintfolio](https://github.com/cnflwzh/mintfolio) 主题。
+从小型 Astro 主题开始，写一个自己的 [Mintfolio](https://github.com/MintfolioBlog/mintfolio) 主题。
 
-这个仓库提供首页、文章页、一个布局和少量样式。归档、普通页面与 404 由 Core 补齐，密码文章直接使用 Core 的解锁组件。你可以先调整颜色和排版，再逐个替换页面。
+这个仓库提供首页、文章、归档、普通页面、布局和少量样式。未实现的 404 由 Core 补齐，密码文章直接使用 Core 的解锁组件。你可以先调整颜色和排版，再逐个替换页面。
 
 ## 开始修改
 
 点击 GitHub 的 **Use this template**，或者克隆：
 
 ~~~sh
-git clone https://github.com/cnflwzh/mintfolio-theme-starter.git my-theme
+git clone https://github.com/MintfolioBlog/mintfolio-theme-starter.git my-theme
 cd my-theme
 npm ci
 ~~~
@@ -37,7 +37,7 @@ npm pack
 把生成的 tgz 放进已安装 Mintfolio 的测试站点，在站点目录运行：
 
 ~~~sh
-npm install ./theme-mintfolio-starter-1.0.2.tgz
+npm install ./theme-mintfolio-starter-0.3.0.tgz
 mintfolio theme use theme-mintfolio-starter
 mintfolio dev
 ~~~
@@ -50,8 +50,12 @@ mintfolio dev
 
 可声明的页面为 home、post、archive、page、notFound，前两个必需。manifest.engine 的 ^1.0.0 对应主题契约，不是 Core 包版本。
 
-[主题开发教程](https://github.com/cnflwzh/mintfolio/wiki/Theme-Development) 按顺序介绍设置、页面、搜索、打包与调试。[API 参考](https://github.com/cnflwzh/mintfolio/blob/main/docs/theme-api.md) 提供完整字段和行为说明。
+[主题开发教程](https://github.com/MintfolioBlog/mintfolio/wiki/Theme-Development) 按顺序介绍设置、页面、搜索、打包与调试。[API 参考](https://github.com/MintfolioBlog/mintfolio/blob/main/docs/theme-api.md) 提供完整字段和行为说明。
 
 ## 许可证
 
 [GPL-3.0-only](LICENSE)。保留许可证与来源说明，引入第三方素材时一并记录许可。
+
+## 0.3.0 发行
+
+主题包与 manifest 统一为 0.3.0，依赖 Mintfolio Core ^0.3.0。可使用 npm install theme-mintfolio-starter@0.3.0 安装，随后使用 mintfolio theme use theme-mintfolio-starter 切换。
