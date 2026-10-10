@@ -1,6 +1,6 @@
 {
   "name": "theme-mintfolio-starter",
-  "version": "1.0.2",
+  "version": "0.3.0",
   "type": "module",
   "files": [
     "theme.mjs",
@@ -17,13 +17,13 @@
   },
   "peerDependencies": {
     "astro": "^7.3.2",
-    "@mintfolio/core": "^0.2.0"
+    "@mintfolio/core": "^0.3.0"
   },
   "devDependencies": {
     "@typescript/native": "npm:typescript@^7.0.2",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "@astrojs/check": "^0.9.10",
-    "@mintfolio/core": "^0.2.0",
+    "@mintfolio/core": "^0.3.0",
     "astro": "^7.3.2",
     "@types/node": "^22.20.2"
   },
@@ -37,11 +37,11 @@
   "author": "CNFLWZH",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cnflwzh/mintfolio-theme-starter.git"
+    "url": "git+https://github.com/MintfolioBlog/mintfolio-theme-starter.git"
   },
-  "homepage": "https://github.com/cnflwzh/mintfolio-theme-starter#readme",
+  "homepage": "https://github.com/MintfolioBlog/mintfolio-theme-starter#readme",
   "bugs": {
-    "url": "https://github.com/cnflwzh/mintfolio-theme-starter/issues"
+    "url": "https://github.com/MintfolioBlog/mintfolio-theme-starter/issues"
   },
   "publishConfig": {
     "access": "public",

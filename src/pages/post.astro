@@ -1,6 +1,8 @@
 ---
 import type { PageProps, PostPageData } from '@mintfolio/core/astro';
 import ProtectedArticle from '@mintfolio/core/components/ProtectedArticle.astro';
+import PostMeta from '@mintfolio/core/components/PostMeta.astro';
+import ArticleLinks from '@mintfolio/core/components/ArticleLinks.astro';
 import StarterLayout from '../layouts/StarterLayout.astro';
 
 interface StarterSettings {
@@ -16,9 +18,11 @@ const protectedBody = page.body.kind === 'protected' ? page.body : undefined;
 <StarterLayout seo={page.seo} siteTitle={theme.site.title} homeUrl={theme.urls.home()} accentColor={theme.settings.accentColor}>
   <article>
     <h1>{page.post.title}</h1>
+    <PostMeta post={page.post} language={theme.site.language} timezone={theme.site.blog?.timezone} />
     <p>{page.post.description}</p>
     {page.body.kind === 'public' ? <div set:html={page.body.html} /> : protectedBody && (
       <ProtectedArticle body={protectedBody} />
     )}
   </article>
+  <ArticleLinks page={page} />
 </StarterLayout>

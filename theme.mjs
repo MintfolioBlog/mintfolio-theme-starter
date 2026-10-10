@@ -8,17 +8,22 @@ export default defineTheme({
   manifest: {
     id: 'starter',
     name: 'Starter',
-    version: '1.0.2',
+    version: '0.3.0',
     author: 'Mintfolio contributors',
     description: '用于创建独立 Mintfolio 主题的最小示例。',
-    engine: '^1.0.0',
+    engine: '^1.1.0',
   },
   capabilities: {
     encryptedPosts: true,
+    search: true,
+    tags: true,
+    categories: true,
   },
   pages: {
     home: './src/pages/home.astro',
     post: './src/pages/post.astro',
+    archive: './src/pages/archive.astro',
+    page: './src/pages/page.astro',
   },
   settings: {
     accentColor: {
