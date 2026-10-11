@@ -18,6 +18,7 @@ export default defineTheme({
     search: true,
     tags: true,
     categories: true,
+    toc: true,
   },
   pages: {
     home: './src/pages/home.astro',
@@ -26,6 +27,7 @@ export default defineTheme({
     page: './src/pages/page.astro',
   },
   settings: {
+    showToc: { type: 'boolean', label: '显示文章目录', default: true },
     accentColor: {
       type: 'color',
       label: '强调色',

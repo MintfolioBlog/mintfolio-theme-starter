@@ -1,0 +1,14 @@
+{
+  "name": "mintfolio-starter-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "mintfolio dev",
+    "build": "mintfolio build",
+    "preview": "mintfolio preview"
+  },
+  "dependencies": {
+    "@mintfolio/core": "^0.4.1",
+    "theme-mintfolio-starter": "file:.packages/theme-mintfolio-starter-0.4.1.tgz"
+  }
+}

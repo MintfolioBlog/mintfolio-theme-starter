@@ -1,20 +1,20 @@
 ---
 import type { HomePageData, PageProps } from '@mintfolio/core/astro';
+import PostMeta from '@mintfolio/core/components/PostMeta.astro';
+import type { StarterSettings } from '../settings';
 import StarterLayout from '../layouts/StarterLayout.astro';
-
-interface StarterSettings {
-  readonly accentColor: string;
-}
-
 interface Props extends PageProps<StarterSettings, HomePageData> {}
-
 const { theme, page } = Astro.props;
 ---
-
-<StarterLayout seo={page.seo} siteTitle={theme.site.title} homeUrl={theme.urls.home()} accentColor={theme.settings.accentColor}>
-  <h1>{page.title}</h1>
-  <p>{page.description}</p>
-  <ul>
-    {page.posts.map((post) => <li><a href={post.url}>{post.title}</a> — {post.description}</li>)}
-  </ul>
+<StarterLayout theme={theme} page={page}>
+  <header><h1>{page.title}</h1><p>{page.description}</p></header>
+  {page.posts.length > 0 ? <ul class="post-list">
+    {page.posts.map((post) => <li>
+      <h2><a href={post.url}>{post.title}</a></h2>
+      <PostMeta post={post} language={theme.site.language} timezone={theme.site.blog?.timezone} />
+      <p>{post.description}</p>
+      <a href={post.category.url}>{post.category.label}</a>
+    </li>)}
+  </ul> : <p class="empty-state">这里还没有文章。</p>}
+  <p><a href={theme.urls.archive()}>浏览全部文章 →</a></p>
 </StarterLayout>

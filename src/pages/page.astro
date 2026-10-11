@@ -1,34 +1,38 @@
 ---
 import type { PageProps, StaticPageData } from '@mintfolio/core/astro';
+import Image from '@mintfolio/core/components/Image.astro';
+import type { StarterSettings } from '../settings';
 import StarterLayout from '../layouts/StarterLayout.astro';
-
-interface StarterSettings { readonly accentColor: string; }
 interface Props extends PageProps<StarterSettings, StaticPageData> {}
 const { theme, page } = Astro.props;
 ---
-<StarterLayout seo={page.seo} siteTitle={theme.site.title} homeUrl={theme.urls.home()} accentColor={theme.settings.accentColor}>
+<StarterLayout theme={theme} page={page}>
   <article>
-    <header><h1>{page.title}</h1><p>{page.description}</p></header>
-    {page.body ? (
-      <div class="starter-prose" set:html={page.body.html} />
-    ) : page.id === 'about' && (
+    <header>
+      <h1>{page.title}</h1><p>{page.description}</p>
+      {page.preview && <p class="status-label">草稿预览</p>}
+    </header>
+    {page.body ? <div class="starter-prose" set:html={page.body.html} /> : page.id === 'about' && (
       <div class="starter-prose">
+        {page.profile.avatar && <Image src={page.profile.avatar} alt={page.profile.name + '的头像'} width={120} height={120} />}
         <p>{page.profile.bio}</p>
         <dl>
           <dt>姓名</dt><dd>{page.profile.name}</dd>
-          <dt>所在地</dt><dd>{page.profile.location}</dd>
-          <dt>联系方式</dt><dd><a href={`mailto:${theme.site.contact.email}`}>{theme.site.contact.email}</a></dd>
+          {page.profile.location && <><dt>所在地</dt><dd>{page.profile.location}</dd></>}
+          {theme.site.contact.email && <><dt>联系方式</dt><dd><a href={'mailto:' + theme.site.contact.email}>{theme.site.contact.email}</a></dd></>}
         </dl>
-        {theme.site.social.length > 0 && <ul>{theme.site.social.map((social) => <li><a href={social.url}>{social.platform}</a></li>)}</ul>}
+        {page.profile.signature && <p>{page.profile.signature}</p>}
+        {theme.site.social.length > 0 && <nav class="term-links" aria-label="社交链接">{theme.site.social.map((social) => <a href={social.url} rel="me">{social.platform}</a>)}</nav>}
+        {theme.site.projects.length > 0 && <section aria-labelledby="projects-heading">
+          <h2 id="projects-heading">项目</h2>
+          <ul class="post-list">{theme.site.projects.map((project) => <li>
+            <h3>{project.title}</h3><p>{project.description}</p>
+            {project.link && <a href={project.link}>访问项目</a>}
+            {project.link && project.repo && ' · '}
+            {project.repo && <a href={project.repo}>源码</a>}
+          </li>)}</ul>
+        </section>}
       </div>
     )}
   </article>
 </StarterLayout>
-<style>
-  .starter-prose { line-height: 1.8; overflow-wrap: anywhere; }
-  .starter-prose :global(img) { max-width: 100%; height: auto; }
-  .starter-prose :global(pre) { overflow: auto; padding: 1rem; background: #f3f3ef; }
-  .starter-prose :global(blockquote) { margin-inline: 0; padding-inline-start: 1rem; border-inline-start: 3px solid var(--starter-accent); }
-  .starter-prose :global(table) { display: block; overflow-x: auto; border-collapse: collapse; }
-  .starter-prose :global(th), .starter-prose :global(td) { border: 1px solid #ccc; padding: .4rem .7rem; }
-</style>
