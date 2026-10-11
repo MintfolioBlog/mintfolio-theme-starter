@@ -1,34 +1,41 @@
 ---
+import type { PageProps } from '@mintfolio/core/astro';
 import SeoHead from '@mintfolio/core/components/SeoHead.astro';
-import '../styles/theme.css';
+import type { StarterSettings } from '../settings';
 import markerUrl from '../assets/mark.svg?url';
-import type { SeoData } from '@mintfolio/core/astro';
+import '../styles/theme.css';
 
-interface Props {
-  /** SEO metadata already calculated by Core. */
-  readonly seo: SeoData;
-  /** Public site title from the injected theme context. */
-  readonly siteTitle: string;
-  /** Core-owned URL for the home page. */
-  readonly homeUrl: string;
-  /** Validated color setting from this theme's manifest. */
-  readonly accentColor: string;
-}
-
-const { seo, siteTitle, homeUrl, accentColor } = Astro.props;
+/** Shared public page/context inputs; the layout never reads host configuration. */
+interface Props extends PageProps<StarterSettings> {}
+const { theme, page } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={seo.language}>
+<html lang={page.seo.language}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <SeoHead seo={seo} faviconFallback={markerUrl} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <SeoHead seo={page.seo} faviconFallback={markerUrl} />
   </head>
-  <body style={`--starter-accent: ${accentColor}`}>
-    <main>
-      <p class="starter-site"><img src={markerUrl} width="24" height="24" alt="Mintfolio starter mark" /> <a href={homeUrl}>{siteTitle}</a></p>
-      <slot />
-    </main>
+  <body style={{ '--starter-accent': theme.settings.accentColor }}>
+    <a class="skip-link" href="#content">跳转到正文</a>
+    <header class="starter-header shell">
+      <a class="starter-site" href={theme.urls.home()}>
+        <img src={markerUrl} width="24" height="24" alt="" />
+        <span>{theme.site.title}</span>
+      </a>
+      <nav class="starter-navigation" aria-label="网站导航">
+        {theme.navigation.map((link) => <a href={link.url} aria-current={link.url === page.url ? 'page' : undefined}>{link.label}</a>)}
+      </nav>
+    </header>
+    <main id="content" class="shell" tabindex="-1"><slot /></main>
+    <footer class="shell starter-footer">
+      <p>© {new Date().getFullYear()} {theme.site.profile.name || theme.site.title}</p>
+      <nav class="starter-navigation" aria-label="订阅和站点地图">
+        <a href={theme.urls.rss()}>RSS 订阅</a>
+        <a href={theme.urls.sitemap()}>站点地图</a>
+      </nav>
+      {theme.site.icp && <a href="https://beian.miit.gov.cn/" rel="noopener noreferrer" target="_blank">{theme.site.icp}</a>}
+    </footer>
   </body>
 </html>

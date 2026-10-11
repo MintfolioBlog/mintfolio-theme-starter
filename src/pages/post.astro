@@ -1,28 +1,34 @@
 ---
 import type { PageProps, PostPageData } from '@mintfolio/core/astro';
+import Image from '@mintfolio/core/components/Image.astro';
 import ProtectedArticle from '@mintfolio/core/components/ProtectedArticle.astro';
 import PostMeta from '@mintfolio/core/components/PostMeta.astro';
 import ArticleLinks from '@mintfolio/core/components/ArticleLinks.astro';
+import type { StarterSettings } from '../settings';
 import StarterLayout from '../layouts/StarterLayout.astro';
-
-interface StarterSettings {
-  readonly accentColor: string;
-}
-
 interface Props extends PageProps<StarterSettings, PostPageData> {}
-
 const { theme, page } = Astro.props;
-const protectedBody = page.body.kind === 'protected' ? page.body : undefined;
+// Protected headings are deliberately absent from public page props.
+const headings = theme.settings.showToc && page.body.kind === 'public'
+  ? page.body.headings.filter((heading) => heading.depth <= 3) : [];
 ---
-
-<StarterLayout seo={page.seo} siteTitle={theme.site.title} homeUrl={theme.urls.home()} accentColor={theme.settings.accentColor}>
+<StarterLayout theme={theme} page={page}>
   <article>
-    <h1>{page.post.title}</h1>
-    <PostMeta post={page.post} language={theme.site.language} timezone={theme.site.blog?.timezone} />
-    <p>{page.post.description}</p>
-    {page.body.kind === 'public' ? <div set:html={page.body.html} /> : protectedBody && (
-      <ProtectedArticle body={protectedBody} />
-    )}
+    <header>
+      <p><a href={page.post.category.url}>{page.post.category.label}</a></p>
+      <h1>{page.post.title}</h1>
+      <PostMeta post={page.post} language={theme.site.language} timezone={theme.site.blog?.timezone} />
+      <p>{page.post.description}</p>
+      {page.post.tags.length > 0 && <nav class="term-links" aria-label="文章标签">{page.post.tags.map((tag) => <a href={tag.url}>#{tag.label}</a>)}</nav>}
+    </header>
+    {page.post.cover && <Image src={page.post.cover} alt="" width={1440} height={810} loading="eager" />}
+    {headings.length > 0 && <details class="article-toc" open>
+      <summary>文章目录</summary>
+      <nav aria-label="文章目录"><ol>{headings.map((heading) => <li class:list={{ nested: heading.depth > 2 }}><a href={'#' + encodeURIComponent(heading.slug)}>{heading.text}</a></li>)}</ol></nav>
+    </details>}
+    <div class="starter-prose">
+      {page.body.kind === 'public' ? <Fragment set:html={page.body.html} /> : <ProtectedArticle body={page.body} />}
+    </div>
   </article>
   <ArticleLinks page={page} />
 </StarterLayout>

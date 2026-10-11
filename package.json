@@ -10,10 +10,14 @@
     "src/styles",
     "LICENSE",
     "README.md",
-    "THIRD_PARTY_NOTICES.md"
+    "THIRD_PARTY_NOTICES.md",
+    "src/settings.ts",
+    "src/config"
   ],
   "exports": {
-    "./theme": "./theme.mjs"
+    "./theme": "./theme.mjs",
+    "./settings": "./src/settings.ts",
+    "./config": "./src/config/theme-starter.config.mjs"
   },
   "peerDependencies": {
     "astro": "^7.3.2",
@@ -30,9 +34,13 @@
   "scripts": {
     "check": "astro check && node node_modules/@typescript/native/bin/tsc --noEmit",
     "prepack": "npm run check",
-    "deps:update": "node tools/update-local-deps.mjs"
+    "deps:update": "node tools/update-local-deps.mjs",
+    "demo:setup": "node tools/demo.mjs setup",
+    "demo": "node tools/demo.mjs dev",
+    "demo:build": "node tools/demo.mjs build",
+    "demo:preview": "node tools/demo.mjs preview"
   },
-  "description": "Start a Mintfolio theme with two Astro pages and your own styles.",
+  "description": "A compact Mintfolio theme template with four renderers and Core-owned content services.",
   "license": "GPL-3.0-only",
   "author": "CNFLWZH",
   "repository": {
@@ -46,5 +54,8 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "mintfolio": {
+    "configTemplate": "./src/config/theme-starter.config.mjs"
   }
 }

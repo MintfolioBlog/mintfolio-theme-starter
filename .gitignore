@@ -12,3 +12,10 @@ playwright-report/
 
 .preview/
 *.bak
+
+# Generated demo installation; authored example content remains tracked.
+examples/demo/_mintfolio/.packages/
+examples/demo/_mintfolio/package-lock.json
+
+.playwright-cli/
+output/
