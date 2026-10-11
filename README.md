@@ -59,3 +59,6 @@ mintfolio dev
 ## 0.3.0 发行
 
 主题包与 manifest 统一为 0.3.0，依赖 Mintfolio Core ^0.3.0。可使用 npm install theme-mintfolio-starter@0.3.0 安装，随后使用 mintfolio theme use theme-mintfolio-starter 切换。
+
+
+0.4.0：主题包与 manifest 版本同步为 0.4.0，支持 Core 0.4。
