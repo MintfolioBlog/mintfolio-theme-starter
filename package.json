@@ -1,6 +1,6 @@
 {
   "name": "theme-mintfolio-starter",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "type": "module",
   "files": [
     "theme.mjs",
@@ -21,13 +21,13 @@
   },
   "peerDependencies": {
     "astro": "^7.3.2",
-    "@mintfolio/core": "^0.4.1"
+    "@mintfolio/core": "^0.4.4"
   },
   "devDependencies": {
     "@typescript/native": "npm:typescript@^7.0.2",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
     "@astrojs/check": "^0.9.10",
-    "@mintfolio/core": "^0.4.1",
+    "@mintfolio/core": "^0.4.4",
     "astro": "^7.3.2",
     "@types/node": "^22.20.2"
   },
@@ -57,5 +57,8 @@
   },
   "mintfolio": {
     "configTemplate": "./src/config/theme-starter.config.mjs"
+  },
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || ^26.12.1"
   }
 }
